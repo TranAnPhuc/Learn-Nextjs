@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import FormQuestion from "./components/FormQuestion";
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
       <Link href="/history" className="text-blue-500 underline">
         View History
       </Link>
+      <FormQuestion />
     </main>
   );
 }

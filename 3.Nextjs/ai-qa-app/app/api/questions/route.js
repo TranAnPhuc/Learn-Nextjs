@@ -1,12 +1,16 @@
-// GET /api/questions
-export async function GET() {
+// GET /api/questions?minView=50
+export async function GET(request) {
   const list = [
     { id: 1, title: "Next.js là gì?", view: 120 },
     { id: 2, title: "Prisma dùng thế nào?", view: 45 },
     { id: 3, title: "SQL Server là gì?", view: 89 },
   ];
+  const { searchParams } = new URL(request.url);
+  const minView = searchParams.get("minView");
 
-  return Response.json(list);
+  const listMinView = list.filter((i) => i.view >= minView);
+
+  return Response.json(listMinView);
 }
 
 // POST /api/questions
@@ -22,9 +26,3 @@ export async function POST(request) {
 
   return Response.json(newQuestion, { status: 201 });
 }
-
-// GET /api/questions?minView=50
-// export async function GET(request) {
-//   const { searchParams } = new URL(request.url);
-//   const minView = searchParams.get("minView");
-// }

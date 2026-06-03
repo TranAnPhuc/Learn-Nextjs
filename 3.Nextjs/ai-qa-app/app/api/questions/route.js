@@ -6,7 +6,7 @@ export async function GET(request) {
     { id: 3, title: "SQL Server là gì?", view: 89 },
   ];
   const { searchParams } = new URL(request.url);
-  const minView = searchParams.get("minView");
+  const minView = parseInt(searchParams.get("minView")) || 0;
 
   const listMinView = list.filter((i) => i.view >= minView);
 

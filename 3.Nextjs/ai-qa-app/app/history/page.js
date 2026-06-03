@@ -1,12 +1,9 @@
-async function getList() {
-  const res = await fetch(
-    "https://jsonplaceholder.typicode.com/posts?_limit=5",
-  );
-  return res.json();
-}
+import { prisma } from "@/lib/prisma";
 
 export default async function HistoryPage() {
-  const list = await getList();
+  const list = await prisma.question.findMany({
+    orderBy: { createdAt: "desc" },
+  });
 
   return (
     <main className="p-8 max-w-2xl mx-auto">
@@ -14,6 +11,9 @@ export default async function HistoryPage() {
       {list.map((post) => (
         <div key={post.id} className="border rounded p-4 mb-3">
           <p className="font-medium">{post.title}</p>
+          <p className="text-sm text-gray-400 mt-1">
+            View: {post.view} - {post.createdAt.toLocaleDateString("vi-VN")}
+          </p>
         </div>
       ))}
     </main>
